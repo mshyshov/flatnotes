@@ -2,9 +2,9 @@
   <!-- Confirm Deletion Modal -->
   <ConfirmModal
     v-model="isDeleteModalVisible"
-    title="Confirm Deletion"
-    :message="`Are you sure you want to delete the note '${note.title}'?`"
-    confirmButtonText="Delete"
+    title="Підтвердити видалення"
+    :message="`Ви впевнені, що хочете видалити нотатку '${note.title}'?`"
+    confirmButtonText="Видалити"
     confirmButtonStyle="danger"
     @confirm="deleteConfirmedHandler"
   />
@@ -12,11 +12,11 @@
   <!-- Save Changes Modal -->
   <ConfirmModal
     v-model="isSaveChangesModalVisible"
-    title="Save Changes"
-    message="Do you want to save your changes?"
-    confirmButtonText="Save"
+    title="Зберегти зміни"
+    message="Чи бажаєте ви зберегти зміни?"
+    confirmButtonText="Зберегти нотатку"
     confirmButtonStyle="success"
-    rejectButtonText="Discard"
+    rejectButtonText="Відмінити зміни"
     rejectButtonStyle="danger"
     @confirm="saveHandler((close = true))"
     @reject="closeNote"
@@ -25,11 +25,11 @@
   <!-- Draft Modal -->
   <ConfirmModal
     v-model="isDraftModalVisible"
-    title="Draft Detected"
-    message="There is an unsaved draft of this note stored in this browser. Do you want to resume the draft version or delete it?"
-    confirmButtonText="Resume Draft"
+    title="Знайдено чорновик"
+    message="Знайдено незбережений чорновик цієї нотатки у браузері. Чи бажаєте ви продовжити роботу над чорновиком або ви бажаєте видалити його?"
+    confirmButtonText="Продовжити роботу над чорновиком"
     confirmButtonStyle="cta"
-    rejectButtonText="Delete Draft"
+    rejectButtonText="Видалити чорновик"
     rejectButtonStyle="danger"
     @confirm="setEditMode()"
     @reject="
@@ -48,7 +48,7 @@
           v-show="editMode"
           v-model.trim="newTitle"
           class="w-full bg-theme-background outline-none"
-          placeholder="Title"
+          placeholder="Заголовок"
         />
       </div>
 
@@ -57,14 +57,14 @@
         <!-- Delete Button -->
         <CustomButton
           v-show="canModify && !isNewNote"
-          label="Delete"
+          label="Видалити"
           :iconPath="mdilDelete"
           @click="deleteHandler"
         />
         <!-- Save Button -->
         <CustomButton
           v-show="editMode"
-          label="Save"
+          label="Зберегти"
           :iconPath="mdilContentSave"
           @click="saveHandler((close = false))"
           class="relative ml-1"
@@ -78,7 +78,7 @@
         <!-- Edit Toggle -->
         <Toggle
           v-if="canModify"
-          label="Edit"
+          label="Редагувати"
           :isOn="editMode"
           class="ml-1"
           @click="toggleEditModeHandler"
@@ -183,7 +183,7 @@ function init() {
       })
       .catch((error) => {
         if (error.response?.status === 404) {
-          loadingIndicator.value.setFailed("Note not found", mdiNoteOffOutline);
+          loadingIndicator.value.setFailed("Нотатку не знайдено", mdiNoteOffOutline);
         } else {
           loadingIndicator.value.setFailed();
           apiErrorHandler(error, toast);
@@ -240,7 +240,7 @@ function deleteHandler() {
 function deleteConfirmedHandler() {
   deleteNote(note.value.title)
     .then(() => {
-      toast.add(getToastOptions("Note deleted ✓", "Success", "success"));
+      toast.add(getToastOptions("Нотатку було видалено ✓", "Успішно", "success"));
       router.push({ name: "home" });
     })
     .catch((error) => {
@@ -256,7 +256,7 @@ function saveHandler(close = false) {
   // Empty Title Validation
   if (!newTitle.value) {
     toast.add(
-      getToastOptions("Cannot save note without a title.", "Invalid", "error"),
+      getToastOptions("Не можна зберегти нотатку без заголовка.", "Недійсна нотатка", "error"),
     );
     return;
   }
@@ -316,8 +316,8 @@ function noteSaveFailure(error) {
   if (error.response?.status === 409) {
     toast.add(
       getToastOptions(
-        "A note with this title already exists. Please try again with a new title.",
-        "Duplicate",
+        "Нотатка з цим заголовком вже існує. Спробуйте, будь ласка, ще раз з новим заголовком.",
+        "Дублікат",
         "error",
       ),
     );
@@ -334,7 +334,7 @@ function noteSaveSuccess(close = false) {
     closeNote();
   }
   setBeforeUnloadConfirmation(false);
-  toast.add(getToastOptions("Note saved successfully ✓", "Success", "success"));
+  toast.add(getToastOptions("Нотатку було збережено ✓", "Успішно", "success"));
 }
 
 // Note Closure
@@ -380,7 +380,7 @@ function postAttachment(file) {
   }
 
   // Uploading Toast
-  toast.add(getToastOptions("Uploading attachment..."));
+  toast.add(getToastOptions("Йде вивантаження прикріпленого файлу..."));
 
   // Upload the attachment
   return createAttachment(file)
@@ -388,8 +388,8 @@ function postAttachment(file) {
       // Success Toast
       toast.add(
         getToastOptions(
-          "Attachment uploaded successfully ✓",
-          "Success",
+          "Прикріплений файл було вивантажено ✓",
+          "Успішно",
           "success",
         ),
       );
@@ -401,8 +401,8 @@ function postAttachment(file) {
         // Error Toast
         toast.add(
           getToastOptions(
-            "An attachment with this filename already exists.",
-            "Duplicate",
+            "Прикріплений файл з таким ім'ям вже існує.",
+            "Дублікат",
             "error",
           ),
         );
@@ -477,8 +477,8 @@ function keydownHandler(event) {
 function entityTooLargeToast(entityName) {
   toast.add(
     getToastOptions(
-      `This ${entityName} is too large. Please try again with a smaller ${entityName} or adjust your server configuration.`,
-      "Failure",
+      `Ця ${entityName} надто велика. Будь ласка, спробуйте ще раз з меншою ${entityName} або налаштуйте конфігурацію сервера.`,
+      "Помилка",
       "error",
     ),
   );
@@ -487,8 +487,8 @@ function entityTooLargeToast(entityName) {
 function badFilenameToast(entityName) {
   toast.add(
     getToastOptions(
-      'Due to filename restrictions, the following characters are not allowed: <>:"/\\|?*',
-      `Invalid ${entityName}`,
+      'Із-за обмежень файлової системи, не можна використовувати наступні символи у заголовку: <>:"/\\|?*',
+      `Невірна ${entityName}`,
       "error",
     ),
   );

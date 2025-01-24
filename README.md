@@ -1,3 +1,12 @@
+# Disclaimer
+
+This repository has been forked from the original and modified ONLY for personal use.
+
+The changes are the following:
+
+- translated main interface to Ukrainian language (editor has not been touched yet as it is separate from the whole application)
+- changed datetime representation format to ISO.
+
 <p align="center">
   <img src="docs/logo.svg" width="300px"></img>
 </p>

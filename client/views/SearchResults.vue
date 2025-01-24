@@ -7,7 +7,7 @@
       <!-- Sort By -->
       <div class="flex justify-end">
         <CustomButton
-          :label="`Sort By: ${sortByName}`"
+          :label="`Сортувати за ${sortByName}`"
           :iconPath="mdiSort"
           class="mb-1"
           @click="toggleSortMenu"
@@ -73,9 +73,9 @@ const toast = useToast();
 
 const sortByName = computed(() => {
   const sortOptionNames = {
-    [searchSortOptions.title]: "Title",
-    [searchSortOptions.lastModified]: "Last Modified",
-    [searchSortOptions.score]: "Score",
+    [searchSortOptions.title]: "заголовком",
+    [searchSortOptions.lastModified]: "часом останньої зміни",
+    [searchSortOptions.score]: "рахунком",
   };
   return sortOptionNames[props.sortBy];
 });
@@ -88,7 +88,7 @@ function init() {
       if (results.value.length > 0) {
         loadingIndicator.value.setLoaded();
       } else {
-        loadingIndicator.value.setFailed("No Results", mdiMagnify);
+        loadingIndicator.value.setFailed("Немає результатів", mdiMagnify);
       }
     })
     .catch((error) => {
@@ -123,20 +123,20 @@ function updateSortByParam(sortBy) {
 
 const menuItems = [
   {
-    label: "Sort By: Score",
+    label: "Сортувати за рахунком",
     command: () => {
       updateSortByParam(searchSortOptions.score);
     },
   },
 
   {
-    label: "Sort By: Title",
+    label: "Сортувати за заголовком",
     command: () => {
       updateSortByParam(searchSortOptions.title);
     },
   },
   {
-    label: "Sort By: Last Modified",
+    label: "Сортувати за часом останньої зміни",
     command: () => {
       updateSortByParam(searchSortOptions.lastModified);
     },

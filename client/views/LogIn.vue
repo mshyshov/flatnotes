@@ -5,7 +5,7 @@
       <TextInput
         v-model="username"
         id="username"
-        placeholder="Username"
+        placeholder="Ім'я користувача"
         class="mb-1"
         autocomplete="username"
         required
@@ -13,7 +13,7 @@
       <TextInput
         v-model="password"
         id="password"
-        placeholder="Password"
+        placeholder="Пароль"
         type="password"
         class="mb-1"
         autocomplete="current-password"
@@ -23,7 +23,7 @@
         v-if="globalStore.config.authType == authTypes.totp"
         v-model="totp"
         id="one-time-code"
-        placeholder="2FA Code"
+        placeholder="Код двохфакторної аутентифікації"
         class="mb-1"
         autocomplete="one-time-code"
         required
@@ -35,9 +35,9 @@
           v-model="rememberMe"
           class="mr-1"
         />
-        <label for="remember-me">Remember Me</label>
+        <label for="remember-me">Запам'ятати мене як користувача</label>
       </div>
-      <CustomButton :iconPath="mdilLogin" label="Log In" />
+      <CustomButton :iconPath="mdilLogin" label="Увійти в систему" />
     </form>
   </div>
 </template>
@@ -86,8 +86,8 @@ function logIn() {
       if (error.response?.status === 401) {
         toast.add(
           getToastOptions(
-            "Please check your credentials and try again.",
-            "Login Failed",
+            "Перевірте ваші логін та пароль та спробуйте ще раз.",
+            "Не вдалося увійти до системи",
             "error",
           ),
         );

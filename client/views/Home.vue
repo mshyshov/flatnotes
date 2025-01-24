@@ -30,7 +30,7 @@
               sortBy: searchSortOptions[globalStore.config.quickAccessSort],
             },
           }"
-          title="Show more"
+          title="Показати більше" 
           ><CustomButton :iconPath="mdiDotsHorizontal"
         /></RouterLink>
       </LoadingIndicator>

@@ -2,7 +2,7 @@
   <Modal v-model="isVisible" class="border-none">
     <SearchInput
       large
-      placeholder="Search by title, content or #tags..."
+      placeholder="Шукати за заголовком, змістом або #тегами..."
       @search="toggleHandler"
       @keydown.esc="toggleHandler"
     />
